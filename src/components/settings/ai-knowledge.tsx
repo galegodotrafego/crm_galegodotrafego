@@ -7,13 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card';
 import { useTranslations } from 'next-intl';
 
 interface DocSummary {
@@ -158,18 +151,18 @@ export function AiKnowledgeCard({
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-base">
+    <div className="surface-content rounded-xl border border-border">
+      <div className="border-b border-border px-4 py-3">
+        <h3 className="flex items-center gap-2 text-base font-medium">
           <BookOpen className="h-4 w-4 text-primary" /> {t('title')}
-        </CardTitle>
-        <CardDescription>
+        </h3>
+        <p className="mt-1 text-sm text-muted-foreground">
           {t('description', {
             searchType: hasEmbeddingsKey ? t('semanticSearchOn') : t('keywordSearchOn')
           })}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
+        </p>
+      </div>
+      <div className="space-y-4 p-4">
         {loading ? (
           <div className="flex items-center py-4 text-sm text-muted-foreground">
             <Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('loading')}
@@ -279,7 +272,7 @@ export function AiKnowledgeCard({
             )}
           </>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

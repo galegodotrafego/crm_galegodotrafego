@@ -77,7 +77,7 @@ export function Step1ChooseTemplate({ selectedTemplate, onSelect, onNext, onBack
       </div>
 
       {templates.length === 0 ? (
-        <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-border bg-card/50">
+        <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-border surface-content">
           <FileText className="mb-2 h-8 w-8 text-muted-foreground" />
           <p className="text-sm text-muted-foreground">{t('chooseTemplate.noTemplates')}</p>
           <p className="mt-1 text-xs text-muted-foreground">{t('chooseTemplate.createFirst')}</p>
@@ -95,7 +95,7 @@ export function Step1ChooseTemplate({ selectedTemplate, onSelect, onNext, onBack
                 className={`flex flex-col gap-3 rounded-xl border p-4 text-left transition-all ${
                   isSelected
                     ? 'border-primary bg-primary/5 ring-1 ring-primary/30'
-                    : 'border-border bg-card/50 hover:border-border hover:bg-card'
+                    : 'border-border surface-content glass-hover'
                 }`}
               >
                 <div className="flex items-start justify-between">

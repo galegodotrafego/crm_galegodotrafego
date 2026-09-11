@@ -442,7 +442,7 @@ export function WhatsAppConfig() {
       <div className="space-y-6">
         {/* Corrupted-token reset banner */}
         {showResetBanner && (
-          <Alert className="bg-amber-950/40 border-amber-600/40">
+          <Alert className="bg-amber-950/40 border-amber-600/40 backdrop-blur-sm">
             <div className="flex items-start gap-3">
               <AlertTriangle className="size-5 text-amber-400 mt-0.5 shrink-0" />
               <div className="flex-1">
@@ -476,7 +476,7 @@ export function WhatsAppConfig() {
         )}
 
         {/* Connection Status */}
-        <Alert className="bg-card border-border">
+        <Alert className="surface-content border-border/60">
           <div className="flex items-center gap-2">
             {connectionStatus === 'connected' ? (
               <CheckCircle2 className="size-4 text-primary" />
@@ -504,8 +504,8 @@ export function WhatsAppConfig() {
           <Alert
             className={
               isRegistered
-                ? 'bg-emerald-950/30 border-emerald-700/50'
-                : 'bg-amber-950/30 border-amber-700/50'
+                ? 'bg-emerald-950/30 border-emerald-700/50 backdrop-blur-sm'
+                : 'bg-amber-950/30 border-amber-700/50 backdrop-blur-sm'
             }
           >
             <div className="flex items-center justify-between gap-2 flex-wrap">
@@ -565,7 +565,7 @@ export function WhatsAppConfig() {
             </AlertDescription>
 
             {registrationProbe && (
-              <div className="mt-3 rounded border border-border bg-card/60 px-3 py-2 space-y-1.5 text-[11px]">
+              <div className="mt-3 rounded border border-border bg-muted/30 px-3 py-2 space-y-1.5 text-[11px]">
                 <p className="font-medium text-foreground">
                   {t('diagnosticLastRun')}
                   <span className={registrationProbe.live ? 'text-emerald-400' : 'text-amber-400'}>

@@ -44,12 +44,12 @@ export const AUTOMATION_TEMPLATES: Record<TemplateSlug, AutomationTemplateDefini
       {
         step_type: 'send_message',
         step_config: {
-          text: "Hi! 👋 Thanks for reaching out. We'll get back to you shortly.",
+          text: "Aguarde um instante. Já vou transferir você para um de nossos atendentes.",
         },
       },
       {
-        step_type: 'add_tag',
-        step_config: { tag_id: '' },
+        step_type: 'assign_conversation',
+        step_config: { mode: 'round_robin' },
       },
     ],
   },

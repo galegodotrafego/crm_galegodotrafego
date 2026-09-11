@@ -88,32 +88,37 @@
 
 :root,
 html[data-mode="dark"] {
-  --background: oklch(0.13 0.01 260);
+  /* Navy escuro profundo — fundo com viés azulado, não preto puro */
+  --background: oklch(0.12 0.018 265);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.18 0.01 260);
-  --card-2: oklch(0.205 0.01 260);
+  /* Cards com superfície escura mais azul-tinted */
+  --card: oklch(0.16 0.018 265);
+  --card-2: oklch(0.19 0.018 265);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.18 0.01 260);
+  --popover: oklch(0.16 0.018 265);
   --popover-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.22 0.01 260);
+  --secondary: oklch(0.20 0.018 265);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.22 0.01 260);
-  --muted-foreground: oklch(0.65 0.01 260);
-  --accent: oklch(0.22 0.01 260);
+  --muted: oklch(0.20 0.018 265);
+  --muted-foreground: oklch(0.62 0.015 260);
+  --accent: oklch(0.20 0.018 265);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.28 0.01 260);
-  --input: oklch(0.28 0.01 260);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  /* Bordas com viés azulado — glow sutil no dark */
+  --border: oklch(0.26 0.022 260);
+  --input: oklch(0.26 0.022 260);
+  /* Charts vibrantes — cores neon que aparecem no fundo escuro */
+  --chart-2: oklch(0.72 0.18 195);  /* cyan/teal */
+  --chart-3: oklch(0.65 0.22 320);  /* magenta/pink */
+  --chart-4: oklch(0.70 0.18 280);  /* violet */
+  --chart-5: oklch(0.75 0.16 55);   /* amber/laranja */
   --radius: 0.625rem;
-  --sidebar: oklch(0.16 0.01 260);
+  /* Sidebar: ligeiramente mais claro que o background */
+  --sidebar: oklch(0.14 0.02 265);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.22 0.01 260);
+  --sidebar-accent: oklch(0.20 0.022 260);
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.28 0.01 260);
+  --sidebar-border: oklch(0.24 0.025 260);
 }
 
 html[data-mode="light"] {
@@ -217,14 +222,618 @@ html[data-theme="rose"] {
   --sidebar-ring: oklch(0.645 0.22 16);
 }
 
+/* ============================================================
+ * LIQUID GLASS DESIGN SYSTEM — Tokens & Utilities
+ *
+ * Two themes: Liquid Glass Light (default) · Liquid Glass Dark
+ * Three backgrounds: Neutral (default) · Soft · Depth
+ * Six combinations: Light+Neutral, Light+Soft, Light+Depth,
+ *                   Dark+Neutral, Dark+Soft, Dark+Depth
+ *
+ *   Layer 0  CANVAS     — page background, no glass
+ *   Layer 1  CONTENT    — cards, forms, tables (near-solid)
+ *   Layer 2  SURFACE    — sidebar, header, panels (glass)
+ *   Layer 3  OVERLAY    — dialogs, modals, sheets (glass strong)
+ *   Layer 4  FLOATING   — tooltips, popovers, dropdowns (elevated)
+ *
+ * Theme = appearance. NEVER theme = color.
+ * Accent used ONLY for semantic purposes.
+ * All tokens centralized here. NEVER spread values into components.
+ * ============================================================ */
+
+/* === THEME: Liquid Glass Light (default) === */
+
+:root {
+  /* --- Ambient Light (Neutral background — no ambient) --- */
+  --lg-ambient-light: transparent;
+  --lg-ambient-gradient: none;
+
+  /* --- Canvas (L0) --- */
+  --lg-canvas-bg: oklch(from var(--background) l c h);
+
+  /* --- Content (L1) --- */
+  --lg-content-bg: oklch(from var(--card) l c h / 0.88);
+  --lg-content-border: 1px solid oklch(from var(--border) l c h / 0.5);
+  --lg-content-highlight: inset 0 1px 0 oklch(1 0 0 / 0.15);
+
+  /* --- Surface (L2) --- */
+  --lg-surface-bg: oklch(from var(--card) l c h / 0.55);
+  --lg-surface-blur: 10px;
+  --lg-surface-border: 1px solid oklch(from var(--border) l c h / 0.35);
+  --lg-surface-highlight: inset 0 1px 0 oklch(1 0 0 / 0.25);
+  --lg-surface-rim: inset 0 -1px 0 oklch(1 0 0 / 0.08);
+  --lg-surface-inner: inset 0 1px 3px oklch(0 0 0 / 0.12);
+  --lg-surface-shadow: 0 2px 8px oklch(0 0 0 / 0.08), 0 0 0 1px oklch(from var(--border) l c h / 0.08);
+
+  /* --- Overlay (L3) --- */
+  --lg-overlay-bg: oklch(from var(--popover) l c h / 0.7);
+  --lg-overlay-blur: 14px;
+  --lg-overlay-border: 1px solid oklch(from var(--border) l c h / 0.25);
+  --lg-overlay-highlight: inset 0 1px 0 oklch(1 0 0 / 0.3);
+  --lg-overlay-rim: inset 0 -1px 0 oklch(1 0 0 / 0.1);
+  --lg-overlay-shadow: 0 8px 32px oklch(0 0 0 / 0.12), 0 0 0 1px oklch(from var(--border) l c h / 0.08);
+
+  /* --- Floating (L4) --- */
+  --lg-floating-bg: oklch(from var(--popover) l c h / 0.65);
+  --lg-floating-blur: 8px;
+  --lg-floating-border: 1px solid oklch(from var(--border) l c h / 0.3);
+  --lg-floating-highlight: inset 0 1px 0 oklch(1 0 0 / 0.25);
+  --lg-floating-rim: inset 0 -1px 0 oklch(1 0 0 / 0.08);
+  --lg-floating-shadow: 0 12px 40px oklch(0 0 0 / 0.15), 0 0 0 1px oklch(from var(--border) l c h / 0.1);
+
+  /* --- Specular Highlights --- */
+  --specular-top: inset 0 1px 0 oklch(1 0 0 / 0.25);
+  --specular-top-strong: inset 0 1.5px 0 oklch(1 0 0 / 0.35);
+  --specular-bottom: inset 0 -1px 0 oklch(1 0 0 / 0.06);
+  --specular-rim: inset 0 1px 0 oklch(1 0 0 / 0.3), inset 0 -1px 0 oklch(1 0 0 / 0.1);
+  --specular-inner: inset 0 1px 3px oklch(0 0 0 / 0.15), inset 0 -1px 0 oklch(1 0 0 / 0.05);
+
+  /* --- Glass Pod --- */
+  --glass-pod-highlight: inset 0 1px 3px oklch(0 0 0 / 0.15), inset 0 -1px 0 oklch(1 0 0 / 0.05);
+  --glass-pod-active-bg: oklch(from var(--card) l c h / 0.4);
+  --glass-pod-active-border: 1px solid oklch(from var(--primary) l c h / 0.15);
+  --glass-pod-active-glow: 0 0 12px oklch(from var(--primary) l c h / 0.06);
+
+  /* --- Rim Light --- */
+  --rim-light: inset 0 1px 0 oklch(1 0 0 / 0.3), inset 0 -1px 0 oklch(1 0 0 / 0.1);
+  --rim-light-hover: inset 0 1.5px 0 oklch(1 0 0 / 0.35), 0 0 8px oklch(1 0 0 / 0.06);
+
+  /* --- Shadows (5 levels) --- */
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.05), 0 0 0 1px oklch(from var(--border) l c h / 0.05);
+  --shadow-md: 0 4px 12px oklch(0 0 0 / 0.08), 0 0 0 1px oklch(from var(--border) l c h / 0.06);
+  --shadow-lg: 0 8px 24px oklch(0 0 0 / 0.12), 0 0 0 1px oklch(from var(--border) l c h / 0.08);
+  --shadow-xl: 0 16px 48px oklch(0 0 0 / 0.16), 0 0 0 1px oklch(from var(--border) l c h / 0.1);
+
+  /* --- Transitions --- */
+  --glass-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --glass-transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --glass-transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Legacy shadow aliases (CRM backward compat) --- */
+  --shadow-rest: var(--shadow-sm);
+  --shadow-hover: var(--shadow-md);
+  --shadow-surface: 0 2px 6px oklch(0 0 0 / 0.06);
+  --shadow-floating: 0 6px 20px oklch(0 0 0 / 0.12);
+  --shadow-overlay: var(--shadow-xl);
+  --glass-saturation: saturate(200%);
+
+  /* --- Ambient Gradient (navy depth — blue-tinted dark surface) --- */
+  --lg-bg-gradient: linear-gradient(160deg,
+    oklch(0.09 0.018 265) 0%,
+    oklch(0.12 0.02 265) 25%,
+    oklch(0.145 0.025 265) 50%,
+    oklch(0.115 0.02 265) 75%,
+    oklch(0.09 0.018 265) 100%);
+
+  /* --- Perimeter Edge (directional 4-side, wraps entire shape) --- */
+  --lg-perimeter:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    inset 1px 0 0 rgba(255,255,255,0.06),
+    inset 0 -1px 0 rgba(255,255,255,0.04),
+    inset -1px 0 0 rgba(255,255,255,0.05);
+  --lg-perimeter-strong:
+    inset 0 1.5px 0 rgba(255,255,255,0.18),
+    inset 1.5px 0 0 rgba(255,255,255,0.08),
+    inset 0 -1px 0 rgba(255,255,255,0.04),
+    inset -1px 0 0 rgba(255,255,255,0.06);
+}
+
+/* === Light mode specular boost === */
+html[data-mode="light"] {
+  --specular-top: inset 0 1px 0 oklch(1 0 0 / 0.35);
+  --specular-top-strong: inset 0 1.5px 0 oklch(1 0 0 / 0.45);
+  --specular-rim: inset 0 1px 0 oklch(1 0 0 / 0.4), inset 0 -1px 0 oklch(1 0 0 / 0.15);
+}
+
+/* === BACKGROUND: Soft === */
+[data-background="soft"] {
+  --lg-ambient-light: oklch(0.95 0.01 250 / 0.03);
+  --lg-ambient-gradient: radial-gradient(ellipse at 30% 20%, oklch(0.95 0.01 250 / 0.04), transparent 70%);
+  --lg-surface-bg: oklch(from var(--card) l c h / 0.6);
+}
+
+/* === BACKGROUND: Depth === */
+[data-background="depth"] {
+  --lg-ambient-light: oklch(0.9 0.015 270 / 0.05);
+  --lg-ambient-gradient: radial-gradient(ellipse at 50% 30%, oklch(0.9 0.015 270 / 0.06), transparent 60%);
+  --lg-surface-bg: oklch(from var(--card) l c h / 0.5);
+  --lg-surface-shadow: 0 2px 8px oklch(0 0 0 / 0.1), 0 0 0 1px oklch(from var(--border) l c h / 0.1);
+}
+
+/* === THEME: Liquid Glass Dark === */
+.dark,
+html[data-mode="dark"] {
+  --lg-canvas-bg: oklch(from var(--background) l c h);
+  --lg-content-bg: oklch(from var(--card) l c h / 1);
+  --lg-content-border: 1px solid oklch(from var(--border) l c h / 0.08);
+  --lg-content-highlight: inset 0 1px 0 oklch(1 0 0 / 0.08);
+
+  --lg-surface-bg: oklch(from var(--card) l c h / 0.4);
+  --lg-surface-highlight: inset 0 1px 0 oklch(1 0 0 / 0.1);
+  --lg-surface-rim: inset 0 -1px 0 oklch(1 0 0 / 0.05);
+  --lg-surface-inner: inset 0 1px 3px oklch(0 0 0 / 0.2);
+  --lg-surface-shadow: 0 2px 8px oklch(0 0 0 / 0.15), 0 0 0 1px oklch(from var(--border) l c h / 0.06);
+
+  --lg-overlay-bg: oklch(from var(--popover) l c h / 0.6);
+  --lg-overlay-highlight: inset 0 1px 0 oklch(1 0 0 / 0.12);
+  --lg-overlay-rim: inset 0 -1px 0 oklch(1 0 0 / 0.06);
+  --lg-overlay-shadow: 0 8px 32px oklch(0 0 0 / 0.25), 0 0 0 1px oklch(from var(--border) l c h / 0.08);
+
+  --lg-floating-bg: oklch(from var(--popover) l c h / 0.55);
+  --lg-floating-highlight: inset 0 1px 0 oklch(1 0 0 / 0.1);
+  --lg-floating-rim: inset 0 -1px 0 oklch(1 0 0 / 0.05);
+  --lg-floating-shadow: 0 12px 40px oklch(0 0 0 / 0.3), 0 0 0 1px oklch(from var(--border) l c h / 0.1);
+
+  --specular-top: inset 0 1px 0 oklch(1 0 0 / 0.1);
+  --specular-top-strong: inset 0 1.5px 0 oklch(1 0 0 / 0.15);
+  --specular-bottom: inset 0 -1px 0 oklch(1 0 0 / 0.03);
+  --specular-rim: inset 0 1px 0 oklch(1 0 0 / 0.12), inset 0 -1px 0 oklch(1 0 0 / 0.05);
+
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.1), 0 0 0 1px oklch(from var(--border) l c h / 0.04);
+  --shadow-md: 0 4px 12px oklch(0 0 0 / 0.15), 0 0 0 1px oklch(from var(--border) l c h / 0.05);
+  --shadow-lg: 0 8px 24px oklch(0 0 0 / 0.25), 0 0 0 1px oklch(from var(--border) l c h / 0.06);
+  --shadow-xl: 0 16px 48px oklch(0 0 0 / 0.35), 0 0 0 1px oklch(from var(--border) l c h / 0.08);
+
+  --glass-pod-active-border: 1px solid oklch(from var(--primary) l c h / 0.12);
+
+  --lg-perimeter:
+    inset 0 1px 0 rgba(180,200,255,0.08),
+    inset 1px 0 0 rgba(180,200,255,0.04),
+    inset 0 -1px 0 rgba(180,200,255,0.02),
+    inset -1px 0 0 rgba(180,200,255,0.03);
+  --lg-perimeter-strong:
+    inset 0 1.5px 0 rgba(180,200,255,0.14),
+    inset 1.5px 0 0 rgba(180,200,255,0.06),
+    inset 0 -1px 0 rgba(180,200,255,0.03),
+    inset -1px 0 0 rgba(180,200,255,0.04);
+}
+
+/* --- Dark mode glass fidelity overrides (blue-tinted glass edges) --- */
+.dark .glass-segment-trough,
+html[data-mode="dark"] .glass-segment-trough {
+  background: rgba(20,30,60,0.5);
+  box-shadow:
+    var(--lg-perimeter-strong),
+    inset 0 2px 6px rgba(0,8,20,0.2),
+    0 4px 16px rgba(0,0,0,0.3);
+}
+
+.dark .glass-segment-pill,
+html[data-mode="dark"] .glass-segment-pill {
+  background: rgba(20,30,60,0.4);
+}
+
+.dark .glass-segment-pill-active,
+html[data-mode="dark"] .glass-segment-pill-active {
+  background: rgba(20,30,60,0.7);
+  box-shadow:
+    inset 0 2px 4px rgba(0,8,20,0.3),
+    inset 0 -1px 0 rgba(180,200,255,0.05);
+}
+
+.dark .glass-circle-btn,
+html[data-mode="dark"] .glass-circle-btn {
+  background: rgba(20,30,60,0.5);
+  box-shadow:
+    var(--lg-perimeter-strong),
+    0 4px 12px rgba(0,0,0,0.25);
+}
+.dark .glass-circle-btn:hover,
+html[data-mode="dark"] .glass-circle-btn:hover {
+  background: rgba(20,30,60,0.6);
+  box-shadow:
+    var(--lg-perimeter-strong),
+    0 6px 20px rgba(0,0,0,0.35);
+}
+
+.dark .glass-pill-btn,
+html[data-mode="dark"] .glass-pill-btn {
+  background: rgba(20,30,60,0.5);
+  box-shadow:
+    var(--lg-perimeter),
+    0 2px 8px rgba(0,0,0,0.2);
+}
+.dark .glass-pill-btn:hover,
+html[data-mode="dark"] .glass-pill-btn:hover {
+  background: rgba(20,30,60,0.6);
+  box-shadow:
+    var(--lg-perimeter-strong),
+    0 4px 16px rgba(0,0,0,0.3);
+}
+
+/* === Dark + Soft === */
+.dark[data-background="soft"],
+html[data-mode="dark"][data-background="soft"] {
+  --lg-surface-bg: oklch(from var(--card) l c h / 0.45);
+  --lg-ambient-light: oklch(0.3 0.01 250 / 0.03);
+}
+
+/* === Dark + Depth === */
+.dark[data-background="depth"],
+html[data-mode="dark"][data-background="depth"] {
+  --lg-surface-bg: oklch(from var(--card) l c h / 0.35);
+  --lg-overlay-shadow: 0 8px 32px oklch(0 0 0 / 0.35), 0 0 0 1px oklch(from var(--border) l c h / 0.1);
+  --lg-ambient-light: oklch(0.25 0.015 270 / 0.05);
+}
+
+/* ---- ANIMATIONS ---- */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(from var(--primary) l c h / 0); }
+  50% { box-shadow: 0 0 20px 4px oklch(from var(--primary) l c h / 0.12); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+    background-image: var(--lg-bg-gradient);
   }
   html {
     @apply font-sans;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out;
+  }
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-out;
+  }
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      oklch(from var(--muted) l c h / 0) 0%,
+      oklch(from var(--muted) l c h / 0.5) 50%,
+      oklch(from var(--muted) l c h / 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+  .animate-slide-in-right {
+    animation: slide-in-right 0.2s ease-out;
+  }
+
+  /* ============================================================
+   * LIQUID GLASS — Utility Classes
+   *
+   * Use these instead of inline glass values.
+   * surface-surface = Layer 2 (glass clear/refractive)
+   * ============================================================ */
+
+  /* --- Layer 1: Content (near-solid, data-heavy) --- */
+  .surface-content {
+    background: var(--lg-content-bg);
+    border: var(--lg-content-border);
+    box-shadow: var(--lg-content-highlight);
+  }
+
+  /* --- Layer 2: Surface (glass clear/refractive) — PRIMARY GLASS CLASS --- */
+  .surface-surface {
+    background: var(--lg-surface-bg);
+    backdrop-filter: blur(var(--lg-surface-blur)) saturate(200%);
+    -webkit-backdrop-filter: blur(var(--lg-surface-blur)) saturate(200%);
+    border: var(--lg-surface-border);
+    box-shadow:
+      var(--lg-surface-highlight),
+      var(--lg-surface-rim),
+      var(--lg-surface-inner),
+      var(--lg-surface-shadow);
+  }
+
+  /* --- Layer 3: Overlay (glass strong isolation) --- */
+  .surface-overlay {
+    background: var(--lg-overlay-bg);
+    backdrop-filter: blur(var(--lg-overlay-blur)) saturate(200%);
+    -webkit-backdrop-filter: blur(var(--lg-overlay-blur)) saturate(200%);
+    border: var(--lg-overlay-border);
+    box-shadow:
+      var(--lg-overlay-highlight),
+      var(--lg-overlay-rim),
+      var(--lg-overlay-shadow);
+  }
+
+  /* --- Layer 4: Floating (glass elevated) --- */
+  .surface-floating {
+    background: var(--lg-floating-bg);
+    backdrop-filter: blur(var(--lg-floating-blur)) saturate(200%);
+    -webkit-backdrop-filter: blur(var(--lg-floating-blur)) saturate(200%);
+    border: var(--lg-floating-border);
+    box-shadow:
+      var(--lg-floating-highlight),
+      var(--lg-floating-rim),
+      var(--lg-floating-shadow);
+  }
+
+  /* --- Glass Hover (luminosity shift, NO translate) --- */
+  .glass-hover {
+    transition: box-shadow var(--glass-transition), border-color var(--glass-transition), background var(--glass-transition-fast);
+  }
+  .glass-hover:hover {
+    box-shadow: var(--shadow-md), var(--specular-top);
+    border-color: oklch(from var(--border) l c h / 0.8);
+  }
+
+  /* --- Glass Hover Strong (cards that glow on hover) --- */
+  .glass-hover-strong {
+    transition: box-shadow var(--glass-transition), border-color var(--glass-transition), background var(--glass-transition-fast);
+  }
+  .glass-hover-strong:hover {
+    box-shadow: var(--shadow-md), var(--specular-top), 0 0 0 1px oklch(from var(--primary) l c h / 0.08);
+    border-color: oklch(from var(--primary) l c h / 0.2);
+  }
+
+  /* --- Glass Active (pressed — concave feel) --- */
+  .glass-active:active {
+    box-shadow: inset 0 2px 4px oklch(0 0 0 / 0.2), var(--specular-bottom);
+    background: oklch(from var(--card) l c h / 0.03);
+  }
+
+  /* --- Primary Glow (accent luminosity for active/selected) --- */
+  .glass-glow-primary {
+    box-shadow: inset 0 0 0 1px oklch(from var(--primary) l c h / 0.2), 0 0 12px oklch(from var(--primary) l c h / 0.1);
+  }
+
+  /* --- Specular Edge Highlight (strong — like refs) --- */
+  .glass-highlight-edge {
+    box-shadow: var(--specular-top-strong);
+  }
+
+  /* --- Ambient Occlusion (bottom shadow for depth) --- */
+  .glass-ao {
+    box-shadow: inset 0 -1px 0 oklch(0 0 0 / 0.08);
+  }
+
+  /* --- Glass Pod (segment control / toggle — pill capsule shape) --- */
+  .glass-pod {
+    background: oklch(from var(--card) l c h / 0.4);
+    box-shadow: var(--glass-pod-highlight);
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    transition: box-shadow var(--glass-transition), border-color var(--glass-transition);
+  }
+  .glass-pod:hover {
+    box-shadow: var(--glass-pod-highlight), 0 0 8px oklch(1 0 0 / 0.04);
+  }
+
+  /* --- Glass Pod Active (selected segment — darker + glow) --- */
+  .glass-pod-active {
+    background: var(--glass-pod-active-bg);
+    box-shadow: var(--glass-pod-highlight), var(--glass-pod-active-glow);
+    border: var(--glass-pod-active-border);
+  }
+
+  /* --- Rim Light (strong bottom-edge specular for buttons) --- */
+  .glass-rim-light {
+    box-shadow: var(--rim-light);
+    transition: box-shadow var(--glass-transition);
+  }
+  .glass-rim-light:hover {
+    box-shadow: var(--rim-light-hover);
+  }
+
+  /* ============================================================
+   * LIQUID GLASS — Fidelity Classes (match Apple refs exactly)
+   *
+   * glass-perimeter: directional edge that wraps the ENTIRE shape
+   * glass-segment-trough: segmented control container (Ref 1)
+   * glass-segment-pill: active segment inside trough (Ref 1)
+   * glass-circle-btn: circle button with glass edge ring (Ref 2)
+   * glass-pill-btn: pill button with glass fill (Ref 2)
+   * ============================================================ */
+
+  /* --- Perimeter Edge (wraps entire shape, brighter top-left) --- */
+  .glass-perimeter {
+    box-shadow: var(--lg-perimeter);
+  }
+  .glass-perimeter-strong {
+    box-shadow: var(--lg-perimeter-strong);
+  }
+
+  /* --- Glass Segment Trough (segmented control container — Ref 1) --- */
+  .glass-segment-trough {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(20px) saturate(1.3);
+    -webkit-backdrop-filter: blur(20px) saturate(1.3);
+    border-radius: 9999px;
+    box-shadow:
+      var(--lg-perimeter-strong),
+      inset 0 2px 6px rgba(0,0,0,0.12),
+      0 4px 16px rgba(0,0,0,0.2);
+    padding: 3px;
+  }
+
+  /* --- Glass Segment Pill (active segment — darker recessed) --- */
+  .glass-segment-pill {
+    background: rgba(255,255,255,0.06);
+    border-radius: 9999px;
+    box-shadow:
+      inset 0 1px 3px rgba(0,0,0,0.12),
+      inset 0 -1px 0 rgba(255,255,255,0.04);
+    padding: 6px 16px;
+    transition: all var(--glass-transition);
+  }
+  .glass-segment-pill-active {
+    background: rgba(255,255,255,0.10);
+    box-shadow:
+      inset 0 2px 4px rgba(0,0,0,0.2),
+      inset 0 -1px 0 rgba(255,255,255,0.05);
+  }
+
+  /* --- Glass Circle Button (like Ref 2 arrow button) --- */
+  .glass-circle-btn {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px) saturate(1.3);
+    -webkit-backdrop-filter: blur(20px) saturate(1.3);
+    border-radius: 9999px;
+    box-shadow:
+      var(--lg-perimeter-strong),
+      0 4px 12px rgba(0,0,0,0.15);
+    transition: all var(--glass-transition);
+  }
+  .glass-circle-btn:hover {
+    background: rgba(255,255,255,0.08);
+    box-shadow:
+      var(--lg-perimeter-strong),
+      0 6px 20px rgba(0,0,0,0.2);
+  }
+
+  /* --- Glass Pill Button (like Ref 2 Upload button) --- */
+  .glass-pill-btn {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px) saturate(1.3);
+    -webkit-backdrop-filter: blur(20px) saturate(1.3);
+    border-radius: 9999px;
+    box-shadow:
+      var(--lg-perimeter),
+      0 2px 8px rgba(0,0,0,0.12);
+    transition: all var(--glass-transition);
+  }
+  .glass-pill-btn:hover {
+    background: rgba(255,255,255,0.08);
+    box-shadow:
+      var(--lg-perimeter-strong),
+      0 4px 16px rgba(0,0,0,0.18);
+  }
+
+  /* --- Backward compat alias: surface-glass → surface-surface --- */
+  .surface-glass {
+    background: var(--lg-surface-bg);
+    backdrop-filter: blur(var(--lg-surface-blur)) saturate(200%);
+    -webkit-backdrop-filter: blur(var(--lg-surface-blur)) saturate(200%);
+    border: var(--lg-surface-border);
+    box-shadow:
+      var(--lg-surface-highlight),
+      var(--lg-surface-rim),
+      var(--lg-surface-inner),
+      var(--lg-surface-shadow);
+  }
+
+  /* ============================================================
+   * SHELL — Liquid Glass L2 Navigation Surfaces
+   *
+   * Sidebar and Header share the same L2 material but are distinct
+   * elements. Tokens from globals.css provide the material; these
+   * classes compose them for shell-specific needs (directional
+   * borders, lighter header shadow).
+   * ============================================================ */
+
+  /* --- Sidebar (L2 — Navigation Surface, right border) --- */
+  .lg-sidebar {
+    background: var(--lg-surface-bg);
+    backdrop-filter: blur(var(--lg-surface-blur)) saturate(200%);
+    -webkit-backdrop-filter: blur(var(--lg-surface-blur)) saturate(200%);
+    border-right: var(--lg-surface-border);
+    box-shadow:
+      var(--lg-surface-highlight),
+      var(--lg-surface-rim),
+      var(--lg-surface-inner),
+      var(--lg-surface-shadow);
+  }
+
+  /* --- Header (L2 — Navigation Surface, bottom border, lighter shadow) --- */
+  .lg-header {
+    background: var(--lg-surface-bg);
+    backdrop-filter: blur(var(--lg-surface-blur)) saturate(200%);
+    -webkit-backdrop-filter: blur(var(--lg-surface-blur)) saturate(200%);
+    border-bottom: var(--lg-surface-border);
+    box-shadow:
+      var(--lg-surface-highlight),
+      var(--lg-surface-rim),
+      var(--lg-surface-inner),
+      0 1px 4px oklch(0 0 0 / 0.04);
+  }
+
+  /* --- Sidebar Nav Item Active (semantic tint — primary accent) --- */
+  .lg-nav-active {
+    background: oklch(from var(--primary) l c h / 0.1);
+    color: var(--primary);
+    box-shadow: inset 3px 0 0 0 var(--primary);
+  }
+
+  /* --- Sidebar Nav Item Hover (luminosity shift, NO translate) --- */
+  .lg-nav-hover {
+    transition: background var(--glass-transition-fast), color var(--glass-transition-fast);
+  }
+  .lg-nav-hover:hover {
+    background: oklch(from var(--muted) l c h / 0.5);
+    color: var(--foreground);
+  }
+}
+
+/* --- Fallback: prefers-reduced-transparency --- */
+@media (prefers-reduced-transparency: reduce) {
+  .surface-surface,
+  .surface-glass,
+  .surface-overlay,
+  .surface-floating,
+  .lg-sidebar,
+  .lg-header {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: oklch(from var(--card) l c h / 0.95);
+  }
+
+  .glass-pod,
+  .glass-pod-active {
+    background: oklch(from var(--card) l c h / 0.9);
+  }
+}
+
+/* --- Fallback: prefers-reduced-motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .glass-pod,
+  .glass-pod-active,
+  .glass-rim-light,
+  .glass-hover,
+  .glass-hover-strong,
+  .lg-nav-hover {
+    transition: none;
   }
 }

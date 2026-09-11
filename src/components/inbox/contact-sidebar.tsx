@@ -131,7 +131,7 @@ export function ContactSidebar({ contact }: ContactSidebarProps) {
   const initials = displayName.charAt(0).toUpperCase();
 
   return (
-    <div className="flex h-full w-70 flex-col border-l border-border bg-card">
+    <div className="surface-content flex h-full w-70 flex-col border-l border-border">
       <ScrollArea className="flex-1">
         <div className="p-4">
           {/* Contact Info */}

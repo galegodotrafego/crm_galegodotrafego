@@ -324,7 +324,7 @@ export function MembersTab() {
       {/* Roster */}
       <Card>
         <CardContent className="p-0">
-          <ul className="divide-y divide-border">
+          <ul className="divide-y divide-border/60">
             {members.map((member) => {
               const roleMeta = ROLE_META[member.role];
               const RoleIcon = roleMeta.icon;
@@ -425,7 +425,7 @@ export function MembersTab() {
                         }
                       >
                         <SelectTrigger
-                          className="w-32 bg-muted border-border text-foreground"
+                          className="w-32"
                           disabled={isBusy}
                         >
                           <SelectValue>{tRoles(member.role)}</SelectValue>
@@ -511,7 +511,7 @@ export function MembersTab() {
           ) : (
             <Card>
               <CardContent className="p-0">
-                <ul className="divide-y divide-border">
+                <ul className="divide-y divide-border/60">
                   {invitations.map((inv) => {
                     const inviteRoleMeta = ROLE_META[inv.role];
                     const InviteRoleIcon = inviteRoleMeta.icon;
@@ -572,7 +572,7 @@ export function MembersTab() {
           if (!open) setRemovingMember(null);
         }}
       >
-        <DialogContent className="bg-popover border-border sm:max-w-sm">
+        <DialogContent className="sm:max-w-sm">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-popover-foreground">
               <AlertTriangle className="size-4 text-amber-400" />

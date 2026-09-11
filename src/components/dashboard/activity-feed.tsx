@@ -31,11 +31,11 @@ interface KindTheme {
 }
 
 const KIND_THEME: Record<ActivityKind, KindTheme> = {
-  message: { icon: MessageSquare, badge: 'bg-blue-500/10 text-blue-400' },
-  contact: { icon: UserPlus, badge: 'bg-primary/10 text-primary' },
-  deal: { icon: Briefcase, badge: 'bg-primary/10 text-primary' },
-  broadcast: { icon: Radio, badge: 'bg-amber-500/10 text-amber-400' },
-  automation: { icon: Zap, badge: 'bg-rose-500/10 text-rose-400' },
+  message: { icon: MessageSquare, badge: 'bg-muted text-muted-foreground' },
+  contact: { icon: UserPlus, badge: 'bg-muted text-muted-foreground' },
+  deal: { icon: Briefcase, badge: 'bg-muted text-muted-foreground' },
+  broadcast: { icon: Radio, badge: 'bg-muted text-muted-foreground' },
+  automation: { icon: Zap, badge: 'bg-muted text-muted-foreground' },
 }
 
 import { useTranslations } from 'next-intl'
@@ -57,12 +57,12 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
     i === 0 || totalLoaded > PAGE_SIZES[i - 1]
 
   return (
-    <section className="rounded-xl border border-border bg-card">
-      <header className="flex items-center justify-between border-b border-border px-5 py-4">
-        <h2 className="text-sm font-semibold text-foreground">{t('title')}</h2>
+    <section className="surface-content rounded-xl">
+      <header className="flex items-center justify-between border-b border-border/40 px-5 py-4">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t('title')}</h2>
         <Link
           href="/inbox"
-          className="text-xs font-medium text-primary hover:text-primary/80"
+          className="text-xs font-semibold text-primary transition-colors hover:text-primary-hover"
         >
           {t('viewAll')}
         </Link>
@@ -93,25 +93,25 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
               // (bg-card/40 vanishes against a white card surface in light).
               const stripe = i % 2 === 0 ? 'bg-transparent' : 'bg-muted/40'
               const row = (
-                <div className="flex items-center gap-3 px-5 py-2.5">
+                <div className="flex items-center gap-3 px-5 py-3">
                   <span
                     className={cn(
-                      'flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full',
+                      'flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl',
                       theme.badge,
                     )}
                   >
-                    <Icon className="h-3.5 w-3.5" />
+                    <Icon className="h-4 w-4" />
                   </span>
-                  <span className="min-w-0 flex-1 truncate text-sm text-foreground">
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground">
                     {it.text}
                   </span>
-                  <span className="flex-shrink-0 text-xs text-muted-foreground tabular-nums">
+                  <span className="flex-shrink-0 text-xs text-muted-foreground/60 tabular-nums">
                     {relativeTime(it.at, t)}
                   </span>
                 </div>
               )
               return (
-                <li key={it.id} className={cn(stripe, 'transition-colors hover:bg-muted/40')}>
+                <li key={it.id} className={cn(stripe, 'transition-colors duration-200 hover:bg-muted/30')}>
                   {it.href ? (
                     <Link href={it.href} className="block">
                       {row}
@@ -123,7 +123,7 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
               )
             })}
           </ul>
-          <footer className="flex items-center justify-between border-t border-border px-5 py-3 text-xs">
+          <footer className="flex items-center justify-between border-t border-border/40 px-5 py-3 text-xs">
             <span className="text-muted-foreground tabular-nums">
               {t('showingOf', { visible: visible.length, totalLoaded, plus: totalLoaded === 50 ? '+' : '' })}
             </span>
@@ -138,11 +138,11 @@ export function ActivityFeed({ items, loading }: ActivityFeedProps) {
                     onClick={() => setPageSize(size)}
                     disabled={disabled}
                     className={cn(
-                      'rounded-md px-2 py-1 font-medium tabular-nums transition-colors',
+                      'rounded-md px-2 py-1 font-medium tabular-nums transition-all duration-200',
                       pageSize === size
-                        ? 'bg-secondary text-secondary-foreground'
-                        : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-                      disabled && 'cursor-not-allowed opacity-40 hover:bg-transparent hover:text-muted-foreground',
+                        ? 'glass-pod-active'
+                        : 'glass-pod text-muted-foreground hover:text-foreground',
+                      disabled && 'cursor-not-allowed opacity-40 hover:text-muted-foreground',
                     )}
                   >
                     {size}

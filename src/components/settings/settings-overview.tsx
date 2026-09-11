@@ -10,7 +10,6 @@ import { useTheme } from '@/hooks/use-theme';
 import { THEMES } from '@/lib/themes';
 import { CURRENCIES } from '@/lib/currency';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
 import { SECTION_META, type SettingsSection } from './settings-sections';
@@ -222,7 +221,7 @@ export function SettingsOverview({
   return (
     <section className="animate-in fade-in-50 duration-200">
       {/* Identity */}
-      <Card className="flex-row items-center gap-4 px-5 py-5">
+      <div className="surface-content flex flex-row items-center gap-4 rounded-xl border border-border px-5 py-5">
         <Avatar size="lg" className="size-14">
           {profile?.avatar_url ? (
             <AvatarImage src={profile.avatar_url} alt={displayName} />
@@ -247,7 +246,7 @@ export function SettingsOverview({
             {tRoles(accountRole!)}
           </SettingsChip>
         ) : null}
-      </Card>
+      </div>
 
       {/* Status tiles */}
       <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -260,11 +259,10 @@ export function SettingsOverview({
               type="button"
               onClick={() => onSelect(section)}
               className={cn(
-                'group flex items-start gap-3.5 rounded-xl border border-border bg-card p-4 text-left transition-colors',
-                'hover:border-primary-soft-2 hover:bg-card-2',
+                'group flex items-start gap-3.5 rounded-xl border border-border p-4 text-left transition-all duration-200 surface-content glass-hover',
               )}
             >
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-primary shadow-[0_2px_8px_oklch(from_var(--primary)_l_c_h/0.15)]">
                 <Icon className="size-4" />
               </span>
               <span className="min-w-0 flex-1">

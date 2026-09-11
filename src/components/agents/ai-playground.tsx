@@ -80,7 +80,7 @@ export function AiPlayground({ onGoToSetup }: { onGoToSetup?: () => void }) {
   };
 
   return (
-    <div className="flex h-[60vh] min-h-[420px] flex-col rounded-xl border border-border bg-card">
+    <div className="flex h-[60vh] min-h-[420px] flex-col rounded-xl border border-border surface-content">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <div className="flex items-center gap-2">
@@ -137,7 +137,7 @@ export function AiPlayground({ onGoToSetup }: { onGoToSetup?: () => void }) {
             )}
             <div
               className={cn(
-                'max-w-[80%] rounded-2xl px-3.5 py-2 text-sm',
+                'max-w-[80%] rounded-xl px-3.5 py-2 text-sm',
                 t.role === 'user'
                   ? 'rounded-br-sm bg-primary text-primary-foreground'
                   : 'rounded-bl-sm bg-muted text-foreground',

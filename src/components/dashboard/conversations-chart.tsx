@@ -49,23 +49,23 @@ export function ConversationsChart({ series, loading, range, onRangeChange }: Co
   }, [data])
 
   return (
-    <section className="flex h-full flex-col rounded-xl border border-border bg-card">
-      <header className="flex items-center justify-between border-b border-border px-5 py-4">
+    <section className="flex h-full flex-col surface-content rounded-xl">
+      <header className="flex items-center justify-between border-b border-border/40 px-5 py-4">
         <div>
-          <h2 className="text-sm font-semibold text-foreground">{t('title')}</h2>
-          <p className="mt-0.5 text-xs text-muted-foreground">{t('description')}</p>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{t('title')}</h2>
+          <p className="mt-0.5 text-xs text-muted-foreground/60">{t('description')}</p>
         </div>
-        <div className="flex items-center gap-1 rounded-lg bg-muted/60 p-1">
+        <div className="flex items-center gap-1 surface-surface rounded-lg p-0.5">
           {[7, 30, 90].map((r) => (
             <button
               key={r}
               type="button"
               onClick={() => onRangeChange(r as RangeDays)}
               className={cn(
-                'rounded-md px-2.5 py-1 text-xs font-medium transition-colors',
+                'rounded-md px-2.5 py-1 text-xs font-medium transition-all duration-200',
                 range === r
-                  ? 'bg-secondary text-secondary-foreground'
-                  : 'text-muted-foreground hover:text-foreground',
+                  ? 'glass-pod-active'
+                  : 'glass-pod text-muted-foreground hover:text-foreground',
               )}
             >
               {t('days', { count: r })}
@@ -88,7 +88,7 @@ export function ConversationsChart({ series, loading, range, onRangeChange }: Co
         )}
       </div>
 
-      <footer className="flex items-center gap-4 border-t border-border px-5 py-3 text-xs text-muted-foreground">
+      <footer className="flex items-center gap-4 border-t border-border/40 px-5 py-3 text-xs text-muted-foreground">
         <LegendDot color="#3b82f6" label={t('incoming')} />
         <LegendDot color="#7c3aed" label={t('outgoing')} />
       </footer>
@@ -285,7 +285,7 @@ function LineSvg({
           letterboxed viewBox percentage. */}
       {hovered && hover !== null && (
         <div
-          className="pointer-events-none absolute top-0 z-10 -translate-x-1/2 rounded-md border border-border bg-popover px-2.5 py-1.5 text-[11px] shadow-lg"
+          className="pointer-events-none absolute top-0 z-10 -translate-x-1/2 surface-overlay rounded-xl px-3 py-2 text-[11px]"
           style={{ left: `${hover.tooltipLeftPx}px` }}
         >
           <div className="font-medium text-popover-foreground">{longDayLabel(hovered.day)}</div>

@@ -55,7 +55,8 @@
     "defaultAvatar": "Avatar",
     "menuProfile": "Profile",
     "menuSettings": "Settings",
-    "menuSignOut": "Sign out"
+    "menuSignOut": "Sign out",
+    "language": "Language"
   },
   "ModeToggle": {
     "switchMode": "Switch to {mode} mode"
@@ -589,6 +590,8 @@
       "saveChanges": "Save Changes",
       "dragToReorder": "Drag to reorder",
       "changeColor": "Change color",
+      "autoAdvance": "Auto-advance",
+      "selectNextStage": "Select next stage",
       "toastFailedSave": "Failed to save pipeline",
       "toastSaved": "Pipeline saved",
       "toastFailedAddStage": "Failed to add stage",

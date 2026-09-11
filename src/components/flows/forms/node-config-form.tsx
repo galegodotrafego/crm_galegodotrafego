@@ -1002,7 +1002,7 @@ function SendMediaForm({
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
-            className="flex w-full items-center justify-center gap-2 rounded-md border border-dashed border-border bg-card px-3 py-4 text-xs text-muted-foreground transition-colors hover:border-border hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:opacity-60"
+            className="flex w-full items-center justify-center gap-2 rounded-md border border-dashed border-border surface-content px-3 py-4 text-xs text-muted-foreground transition-colors hover:border-border hover:surface-surface hover:text-foreground disabled:cursor-not-allowed disabled:opacity-60"
           >
             {uploading ? (
               <>

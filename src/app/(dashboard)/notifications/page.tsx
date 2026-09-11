@@ -186,8 +186,8 @@ export default function NotificationsPage() {
       </div>
 
       {notifications.length === 0 ? (
-        <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-dashed border-border bg-muted/40">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
+        <div className="flex h-48 flex-col items-center justify-center rounded-xl border border-dashed border-border/60 surface-content">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 shadow-[0_2px_8px_oklch(from_var(--primary)_l_c_h/0.15)]">
             <Bell className="h-6 w-6 text-primary" />
           </div>
           <p className="mt-3 text-sm font-medium text-foreground">
@@ -209,16 +209,16 @@ export default function NotificationsPage() {
                   type="button"
                   onClick={() => handleClick(n)}
                   className={cn(
-                    "flex w-full items-start gap-3 rounded-xl border p-4 text-left transition-colors",
+                    "flex w-full items-start gap-3 rounded-xl border p-4 text-left transition-all duration-200",
                     isUnread
-                      ? "border-primary/30 bg-primary/5 hover:border-primary/50"
-                      : "border-border bg-card hover:border-border/70",
+                      ? "surface-surface border-primary/30 glass-hover"
+                      : "surface-content border-border/60 hover:border-border/80",
                   )}
                 >
                   <div
                     className={cn(
-                      "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg",
-                      isUnread ? "bg-primary/15" : "bg-muted",
+                      "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl",
+                      isUnread ? "bg-primary/15" : "bg-muted/50",
                     )}
                     aria-hidden
                   >

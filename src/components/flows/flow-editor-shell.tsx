@@ -140,7 +140,7 @@ export function FlowEditorShell({ initialFlow, initialNodes }: Props) {
         )}
 
         {/* ---- stage: the active view, owning its own overflow ---- */}
-        <div className="relative mx-6 min-h-0 flex-1 overflow-hidden rounded-xl border border-border bg-card-2">
+        <div className="relative mx-6 min-h-0 flex-1 overflow-hidden rounded-xl border border-border surface-content">
           {effectiveView === "canvas" ? (
             <FlowCanvas />
           ) : (
@@ -200,7 +200,7 @@ function SegButton({
       className={cn(
         "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[12.5px] font-medium transition-colors",
         active
-          ? "bg-card text-foreground shadow-sm"
+          ? "surface-surface text-foreground shadow-sm"
           : "text-muted-foreground hover:text-foreground",
       )}
     >

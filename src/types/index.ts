@@ -361,6 +361,18 @@ export interface PipelineStage {
   name: string;
   position: number;
   color: string;
+  /**
+   * When true, deals that arrive at this stage automatically advance
+   * to `next_stage_id`. Useful for pipeline stages that represent
+   * transient states (e.g., "Qualification" → auto-advance to "Proposal").
+   * Added in migration 040.
+   */
+  auto_advance?: boolean;
+  /**
+   * Target stage for auto-advance. Required when `auto_advance` is true.
+   * FK to pipeline_stages(id). Added in migration 040.
+   */
+  next_stage_id?: string | null;
   created_at: string;
 }
 
@@ -477,6 +489,7 @@ export type AutomationStepType =
   | 'assign_conversation'
   | 'update_contact_field'
   | 'create_deal'
+  | 'move_deal_to_stage'
   | 'wait'
   | 'condition'
   | 'send_webhook'
@@ -568,6 +581,11 @@ export interface CreateDealStepConfig {
   value?: number;
 }
 
+export interface MoveDealToStageConfig {
+  pipeline_id: string;
+  stage_id: string;
+}
+
 export interface WaitStepConfig {
   amount: number;
   unit: 'minutes' | 'hours' | 'days';
@@ -602,6 +620,7 @@ export type AutomationStepConfig =
   | AssignConversationStepConfig
   | UpdateContactFieldStepConfig
   | CreateDealStepConfig
+  | MoveDealToStageConfig
   | WaitStepConfig
   | ConditionStepConfig
   | SendWebhookStepConfig

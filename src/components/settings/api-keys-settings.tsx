@@ -179,7 +179,7 @@ export function ApiKeysSettings() {
       ) : (
         <Card>
           <CardContent className="p-0">
-            <ul className="divide-border divide-y">
+            <ul className="divide-border/60 divide-y">
               {keys.map((k) => {
                 const status = keyStatus(k);
                 const inactive = status !== 'active';

@@ -11,13 +11,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card';
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -255,16 +248,16 @@ export function AiConfig() {
       )}
 
       <div className="space-y-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
+        <div className="surface-content rounded-xl border border-border">
+          <div className="border-b border-border px-4 py-3">
+            <h3 className="flex items-center gap-2 text-base font-medium">
               <Sparkles className="h-4 w-4 text-primary" /> {t('providerAndKey')}
-            </CardTitle>
-            <CardDescription>
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
               {t('encryptionNotice')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
+            </p>
+          </div>
+          <div className="space-y-4 p-4">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label>{t('provider')}</Label>
@@ -378,17 +371,17 @@ export function AiConfig() {
                 })}
               </p>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">{t('behaviour')}</CardTitle>
-            <CardDescription>
-              {t('behaviourDesc')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        <div className="surface-content rounded-xl border border-border">
+            <div className="border-b border-border px-4 py-3">
+              <h3 className="text-base font-medium">{t('behaviour')}</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {t('behaviourDesc')}
+              </p>
+            </div>
+            <div className="space-y-4 p-4">
             <div className="space-y-2">
               <Label htmlFor="ai-prompt">{t('businessContext')}</Label>
               <Textarea
@@ -483,8 +476,8 @@ export function AiConfig() {
                 </SelectContent>
               </Select>
             </div>
-          </CardContent>
-        </Card>
+        </div>
+        </div>
 
         <AiKnowledgeCard
           accountId={accountId}

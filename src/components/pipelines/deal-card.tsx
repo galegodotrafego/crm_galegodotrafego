@@ -41,16 +41,16 @@ export function DealCard({ deal, stage, onEdit, isOverlay }: DealCardProps) {
         e.stopPropagation();
         onEdit(deal);
       }}
-      className={`group relative w-full cursor-pointer rounded-xl border border-border/50 bg-muted/70 pl-4 pr-3 py-3 text-left shadow-sm transition-all ${
+      className={`glass-pod group/deal relative w-full cursor-pointer rounded-xl border border-border/60 pl-5 pr-3 py-3 text-left shadow-[0_1px_3px_oklch(0_0_0/0.08)] transition-all duration-200 ${
         isOverlay
-          ? "shadow-xl"
-          : "hover:-translate-y-0.5 hover:border-border hover:bg-muted hover:shadow-lg"
+          ? "shadow-[0_24px_80px_oklch(0_0_0/0.25)] scale-105"
+          : "hover:border-primary/15 hover:shadow-[0_8px_32px_oklch(0_0_0/0.12)]"
       }`}
     >
       {/* 4px left accent bar using stage color */}
       <span
         aria-hidden
-        className="absolute left-0 top-0 h-full w-1 rounded-l-xl"
+        className="absolute left-0 top-0 h-full w-1.5 rounded-l-2xl transition-all duration-200 group-hover/deal:w-2"
         style={{ backgroundColor: stage?.color ?? "#94a3b8" }}
       />
 
@@ -59,13 +59,13 @@ export function DealCard({ deal, stage, onEdit, isOverlay }: DealCardProps) {
           {deal.title}
         </h4>
         {deal.status === "won" && (
-          <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold text-primary">
+          <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-bold text-emerald-400 shadow-[0_0_8px_oklch(0.5_0.15_160/0.2)]">
             <Check className="h-3 w-3" />
             {t("won")}
           </span>
         )}
         {deal.status === "lost" && (
-          <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-semibold text-red-400">
+          <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-bold text-red-400 shadow-[0_0_8px_oklch(0.5_0.2_25/0.2)]">
             <X className="h-3 w-3" />
             {t("lost")}
           </span>
@@ -73,19 +73,19 @@ export function DealCard({ deal, stage, onEdit, isOverlay }: DealCardProps) {
       </div>
 
       {/* Contact row */}
-      <div className="mt-2 flex items-center gap-2">
-        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-muted text-[10px] font-semibold text-foreground">
+      <div className="mt-2.5 flex items-center gap-2">
+        <span className="flex h-5 w-5 items-center justify-center rounded-lg bg-primary/10 text-[10px] font-bold text-primary">
           {initials(deal.contact?.name, deal.contact?.phone)}
         </span>
-        <span className="truncate text-xs text-muted-foreground">{contactLabel}</span>
+        <span className="truncate text-xs text-muted-foreground/70">{contactLabel}</span>
       </div>
 
-      <div className="mt-2 flex items-center justify-between">
-        <span className="text-sm font-bold text-primary">
+      <div className="mt-2.5 flex items-center justify-between">
+        <span className="text-sm font-bold tabular-nums text-primary">
           {formatCurrency(deal.value, deal.currency)}
         </span>
         {deal.expected_close_date && (
-          <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
+          <span className="flex items-center gap-1 text-[11px] text-muted-foreground/50">
             <Calendar className="h-3 w-3" />
             {formatDate(deal.expected_close_date)}
           </span>
@@ -93,10 +93,10 @@ export function DealCard({ deal, stage, onEdit, isOverlay }: DealCardProps) {
       </div>
 
       {assigneeLabel && (
-        <div className="mt-2 flex items-center justify-end">
+        <div className="mt-2.5 flex items-center justify-end">
           <span
             title={assigneeLabel}
-            className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/15 text-[10px] font-semibold text-primary"
+            className="flex h-5 w-5 items-center justify-center rounded-lg bg-primary/15 text-[10px] font-bold text-primary"
           >
             {initials(assigneeLabel)}
           </span>

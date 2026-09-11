@@ -120,7 +120,7 @@ export function MessageActions({
                 key={e}
                 type="button"
                 onClick={() => handlePickEmoji(e)}
-                className="flex h-8 w-8 items-center justify-center rounded-full text-lg leading-none transition-transform hover:scale-125 hover:bg-muted"
+                className="flex h-8 w-8 items-center justify-center rounded-full text-lg leading-none transition-all duration-200 glass-hover hover:bg-muted"
                 aria-label={t("reactWith", { emoji: e })}
               >
                 {e}

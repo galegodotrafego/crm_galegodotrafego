@@ -189,7 +189,7 @@ export function TemplatePicker({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="border-border bg-popover sm:max-w-lg">
+      <DialogContent className="surface-overlay border-border sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-popover-foreground">
             <LayoutTemplate className="h-4 w-4 text-primary" />
@@ -209,7 +209,7 @@ export function TemplatePicker({
                 <Loader2 className="h-5 w-5 animate-spin text-primary" />
               </div>
             ) : templates.length === 0 ? (
-              <div className="rounded-md border border-border bg-background/50 p-6 text-center">
+              <div className="surface-content rounded-md border border-border p-6 text-center">
                 <p className="text-sm text-popover-foreground">{t("noApprovedTemplates")}</p>
                 <p className="mt-1 text-xs text-muted-foreground">
                   {t("noApprovedTemplatesHint")}
@@ -221,7 +221,7 @@ export function TemplatePicker({
                   key={t.id}
                   type="button"
                   onClick={() => pickTemplate(t)}
-                  className="w-full rounded-md border border-border bg-background/50 p-3 text-left transition-colors hover:border-primary/40 hover:bg-popover"
+                  className="glass-pod w-full rounded-md border border-border p-3 text-left transition-all duration-200 hover:border-primary/40"
                 >
                   <div className="flex items-start gap-2">
                     <div className="min-w-0 flex-1">

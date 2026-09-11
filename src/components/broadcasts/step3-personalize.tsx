@@ -243,7 +243,7 @@ export function Step3Personalize({
       </div>
 
       {mediaHeaderType && (
-        <div className="rounded-xl border border-border bg-card/50 p-4">
+        <div className="rounded-xl border border-border surface-content p-4">
           <div className="mb-3 flex items-center gap-2">
             <ImageIcon className="h-4 w-4 text-primary" />
             <p className="text-sm font-medium text-foreground">{t('personalize.headerImage')}</p>
@@ -285,7 +285,7 @@ export function Step3Personalize({
       )}
 
       {placeholders.length === 0 && !mediaHeaderType ? (
-        <div className="rounded-xl border border-border bg-card/50 p-6 text-center">
+        <div className="rounded-xl border border-border surface-content p-6 text-center">
           <p className="text-sm text-muted-foreground">
             {t('personalize.noPreview')}
           </p>
@@ -299,7 +299,7 @@ export function Step3Personalize({
             return (
               <div
                 key={placeholder}
-                className="rounded-xl border border-border bg-card/50 p-4"
+                className="rounded-xl border border-border surface-content p-4"
               >
                 <div className="mb-3 flex items-center gap-2">
                   <span className="inline-flex items-center rounded-md bg-primary/10 px-2 py-0.5 text-xs font-mono font-medium text-primary">
@@ -324,7 +324,7 @@ export function Step3Personalize({
                       <SelectTrigger className="w-full border-border bg-muted text-foreground">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent className="border-border bg-popover">
+                      <SelectContent className="border-border surface-overlay">
                         <SelectItem value="static">{t('personalize.typeStatic')}</SelectItem>
                         <SelectItem value="field">{t('personalize.typeContact')}</SelectItem>
                         <SelectItem value="custom_field">
@@ -357,7 +357,7 @@ export function Step3Personalize({
                         <SelectTrigger className="w-full border-border bg-muted text-foreground">
                           <SelectValue placeholder={t('personalize.selectContactField')} />
                         </SelectTrigger>
-                        <SelectContent className="border-border bg-popover">
+                        <SelectContent className="border-border surface-overlay">
                           {contactFields.map((field) => (
                             <SelectItem key={field.value} value={field.value}>
                               {t(`personalize.fieldMap.${field.labelKey}`)}
@@ -383,7 +383,7 @@ export function Step3Personalize({
                             }
                           />
                         </SelectTrigger>
-                        <SelectContent className="border-border bg-popover">
+                        <SelectContent className="border-border surface-overlay">
                           {customFields.map((f) => (
                             <SelectItem key={f.id} value={f.id}>
                               {f.field_name}
@@ -402,7 +402,7 @@ export function Step3Personalize({
 
       {/* Live Preview — rendered as a WhatsApp-style bubble so the user
           sees approximately what the recipient will see. */}
-      <div className="rounded-xl border border-border bg-card/50 p-4">
+      <div className="rounded-xl border border-border surface-content p-4">
         <div className="mb-3 flex items-center gap-2">
           <Eye className="h-4 w-4 text-primary" />
           <p className="text-sm font-medium text-foreground">{t('personalize.preview')}</p>

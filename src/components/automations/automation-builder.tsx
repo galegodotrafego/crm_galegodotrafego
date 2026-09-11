@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import {
   ArrowLeft,
+  ArrowRight,
   ChevronDown,
   Plus,
   Trash2,
@@ -116,6 +117,7 @@ const STEP_META: Record<AutomationStepType, StepMeta> = {
   assign_conversation: { label: "assign_conversation", icon: UserCheck, border: "border-l-primary" },
   update_contact_field: { label: "update_contact_field", icon: PencilLine, border: "border-l-primary" },
   create_deal: { label: "create_deal", icon: Briefcase, border: "border-l-primary" },
+  move_deal_to_stage: { label: "move_deal_to_stage", icon: ArrowRight, border: "border-l-primary" },
   wait: { label: "wait", icon: Hourglass, border: "border-l-border" },
   condition: { label: "condition", icon: GitBranch, border: "border-l-amber-500" },
   send_webhook: { label: "send_webhook", icon: Webhook, border: "border-l-primary" },
@@ -132,6 +134,7 @@ const ADDABLE_STEPS: AutomationStepType[] = [
   "assign_conversation",
   "update_contact_field",
   "create_deal",
+  "move_deal_to_stage",
   "wait",
   "condition",
   "send_webhook",
@@ -189,6 +192,8 @@ function blankConfig(type: AutomationStepType): Record<string, unknown> {
       return { field: "name", value: "" }
     case "create_deal":
       return { pipeline_id: "", stage_id: "", title: "", value: 0 }
+    case "move_deal_to_stage":
+      return { pipeline_id: "", stage_id: "" }
     case "wait":
       return { amount: 1, unit: "hours" }
     case "condition":
@@ -723,7 +728,7 @@ export function AutomationBuilder({ initial }: { initial: BuilderInitial }) {
       {/* Top bar. At sub-sm widths the "Active" label is hidden and the
           switch moves to the right of the save button, so the name input
           gets maximum width. */}
-      <header className="flex flex-shrink-0 items-center gap-2 border-b border-border bg-card/80 px-3 py-3 sm:gap-3 sm:px-4">
+      <header className="flex flex-shrink-0 items-center gap-2 border-b border-border surface-content px-3 py-3 sm:gap-3 sm:px-4">
         <button
           type="button"
           onClick={() => router.push("/automations")}
@@ -808,7 +813,7 @@ function TriggerCard({
     // Card width: full on mobile, fixed 320px on sm+. The canvas wrapper
     // (max-w-2xl + px-4) keeps this tidy on tablet/desktop.
     <div className="z-10 w-full max-w-[320px] sm:w-80">
-      <div className="rounded-lg border border-border border-l-4 border-l-blue-500 bg-card shadow-lg">
+      <div className="surface-content rounded-lg border border-border border-l-4 border-l-blue-500 shadow-lg">
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
@@ -1118,7 +1123,7 @@ function StepRenderer({
       <div className={cn("z-10 flex min-w-0 flex-col", width)}>
         <div
           className={cn(
-            "rounded-lg border border-border border-l-4 bg-card shadow-lg",
+            "surface-content rounded-lg border border-border border-l-4 shadow-lg",
             meta.border,
           )}
         >
@@ -1268,7 +1273,7 @@ function AddButton({ onPick }: { onPick: (t: AutomationStepType) => void }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="start"
-          className="max-h-80 min-w-56 overflow-y-auto border-border bg-popover"
+          className="max-h-80 min-w-56 overflow-y-auto border-border surface-overlay"
         >
           {ADDABLE_STEPS.map((tp) => {
             const Icon = STEP_META[tp].icon
@@ -1415,6 +1420,15 @@ function StepEditor({
             />
           </FieldBlock>
         </>
+      )
+    case "move_deal_to_stage":
+      return (
+        <DealPipelineFields
+          pipelineId={(cfg.pipeline_id as string) ?? ""}
+          stageId={(cfg.stage_id as string) ?? ""}
+          onChange={(patch) => set(patch)}
+          t={t}
+        />
       )
     case "wait":
       return (

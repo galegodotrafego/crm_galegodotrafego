@@ -16,6 +16,7 @@ import type {
   UpdateContactFieldStepConfig,
   WaitStepConfig,
   CreateDealStepConfig,
+  MoveDealToStageConfig,
   AssignConversationStepConfig,
 } from '@/types'
 import { supabaseAdmin } from './admin-client'
@@ -582,6 +583,21 @@ async function runStep(step: AutomationStep, args: ExecuteArgs): Promise<string>
         status: 'open',
       })
       return 'deal created'
+    }
+
+    case 'move_deal_to_stage': {
+      const cfg = step.step_config as MoveDealToStageConfig
+      if (!cfg.pipeline_id || !cfg.stage_id) throw new Error('move_deal_to_stage needs pipeline + stage')
+      if (!args.contactId) throw new Error('move_deal_to_stage needs a contact')
+      const { error: updateErr } = await db
+        .from('deals')
+        .update({ stage_id: cfg.stage_id })
+        .eq('account_id', args.automation.account_id)
+        .eq('contact_id', args.contactId)
+        .eq('pipeline_id', cfg.pipeline_id)
+        .eq('status', 'open')
+      if (updateErr) throw updateErr
+      return `deal moved to stage ${cfg.stage_id}`
     }
 
     case 'send_webhook': {

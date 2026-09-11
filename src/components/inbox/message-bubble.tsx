@@ -239,10 +239,10 @@ export function MessageBubble({
     >
       <div
         className={cn(
-          "relative rounded-2xl px-3 py-2",
+          "relative rounded-xl px-4 py-2.5 shadow-sm",
           isAgent
-            ? "rounded-br-md bg-primary text-primary-foreground"
-            : "rounded-bl-md bg-muted text-foreground",
+            ? "rounded-br-md bg-primary text-primary-foreground shadow-[0_2px_8px_oklch(from var(--primary) l c h/0.2)]"
+            : "rounded-bl-md surface-content border border-border/60 text-foreground",
         )}
       >
         {reply && (

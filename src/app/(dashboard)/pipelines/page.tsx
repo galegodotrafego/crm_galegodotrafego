@@ -227,9 +227,41 @@ export default function PipelinesPage() {
       if (error) {
         toast.error(t("toastFailedMoveDeal"));
         refreshDeals();
+        return;
+      }
+
+      // Auto-advance: check if the target stage has auto-advance enabled
+      const targetStage = stages.find((s) => s.id === newStageId);
+      if (targetStage?.auto_advance && targetStage.next_stage_id) {
+        // Check for circular references to prevent infinite loops
+        const visited = new Set<string>([newStageId]);
+        let nextStageId = targetStage.next_stage_id;
+
+        // Follow the chain until we find a stage without auto-advance
+        while (nextStageId) {
+          const nextStage = stages.find((s) => s.id === nextStageId);
+          if (!nextStage || visited.has(nextStageId)) break;
+          visited.add(nextStageId);
+
+          // Move to the next stage
+          setDeals((prev) =>
+            prev.map((d) => (d.id === dealId ? { ...d, stage_id: nextStageId! } : d)),
+          );
+          await supabase
+            .from("deals")
+            .update({ stage_id: nextStageId })
+            .eq("id", dealId);
+
+          // Continue chain if next stage also has auto-advance
+          if (nextStage.auto_advance && nextStage.next_stage_id) {
+            nextStageId = nextStage.next_stage_id;
+          } else {
+            break;
+          }
+        }
       }
     },
-    [supabase, refreshDeals, t],
+    [supabase, refreshDeals, stages, t],
   );
 
   const handleAddDeal = useCallback(

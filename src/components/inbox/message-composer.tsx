@@ -536,7 +536,7 @@ export function MessageComposer({
   // ---- Render --------------------------------------------------------
 
   return (
-    <div className="border-t border-border bg-card p-3">
+    <div className="surface-content border-t border-border/60 p-3">
       {replyTo && (
         <div className="mb-2">
           <ReplyQuote
@@ -745,7 +745,7 @@ export function MessageComposer({
             // The placeholder text also surfaces the read-only state.
             title={readOnly ? t("readOnlyTitle") : undefined}
             className={cn(
-              "flex-1 resize-none rounded-xl border border-border bg-muted px-4 py-2.5 text-sm text-foreground placeholder-muted-foreground outline-none transition-colors focus:border-primary/50",
+              "flex-1 resize-none rounded-xl border border-border/60 bg-muted/30 px-4 py-2.5 text-sm text-foreground placeholder-muted-foreground/50 outline-none transition-all duration-200 focus:border-primary/40 focus:bg-muted/50 focus:ring-2 focus:ring-primary/10",
               (sessionExpired || readOnly) && "cursor-not-allowed opacity-50"
             )}
           />
@@ -756,7 +756,7 @@ export function MessageComposer({
             gateReason="send messages"
             disabled={!text.trim() || sessionExpired || sending}
             onClick={handleSend}
-            className="h-9 w-9 shrink-0 bg-primary p-0 hover:bg-primary/90 disabled:opacity-40"
+            className="h-9 w-9 shrink-0 bg-gradient-to-br from-primary to-primary-hover p-0 shadow-[0_2px_8px_oklch(from var(--primary) l c h/0.3)] hover:shadow-[0_4px_16px_oklch(from var(--primary) l c h/0.4)] disabled:opacity-40"
           >
             <Send className="h-4 w-4" />
           </GatedButton>

@@ -97,10 +97,10 @@ function ModeCard({
       aria-checked={isActive}
       aria-label={t("useMode", { mode })}
       className={cn(
-        "flex items-center gap-3 rounded-lg border bg-card p-4 text-left transition-colors",
+        "flex items-center gap-3 rounded-xl border border-border p-4 text-left transition-all duration-200",
         isActive
-          ? "border-primary/60 ring-2 ring-primary/40"
-          : "border-border hover:border-border hover:bg-muted/40",
+          ? "surface-surface border-primary/60 ring-2 ring-primary/40 shadow-[0_0_16px_oklch(from_var(--primary)_l_c_h/0.15)]"
+          : "surface-content hover:border-border/80 glass-hover",
       )}
     >
       <span
@@ -145,10 +145,10 @@ function ThemeCard({
       aria-pressed={isActive}
       aria-label={t("useTheme", { name })}
       className={cn(
-        "flex flex-col gap-3 rounded-lg border bg-card p-4 text-left transition-colors",
+        "flex flex-col gap-3 rounded-xl border border-border p-4 text-left transition-all duration-200",
         isActive
-          ? "border-primary/60 ring-2 ring-primary/40"
-          : "border-border hover:border-border hover:bg-muted/40",
+          ? "surface-surface border-primary/60 ring-2 ring-primary/40 shadow-[0_0_16px_oklch(from_var(--primary)_l_c_h/0.15)]"
+          : "surface-content hover:border-border/80 glass-hover",
       )}
     >
       <div className="flex items-center justify-between">

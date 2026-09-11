@@ -354,7 +354,6 @@ export default function ContactsPage() {
             <Button
               variant="outline"
               onClick={() => setCustomFieldsOpen(true)}
-              className="border-border text-muted-foreground hover:bg-muted"
             >
               <SlidersHorizontal className="size-4" />
               {t('customFieldsBtn')}
@@ -365,7 +364,6 @@ export default function ContactsPage() {
             canAct={canEdit}
             gateReason="add or import contacts"
             onClick={() => setImportOpen(true)}
-            className="border-border text-muted-foreground hover:bg-muted"
           >
             <Upload className="size-4" />
             {t('importBtn')}
@@ -374,7 +372,6 @@ export default function ContactsPage() {
             canAct={canEdit}
             gateReason="add or import contacts"
             onClick={openAddForm}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground"
           >
             <Plus className="size-4" />
             {t('addContactBtn')}
@@ -396,7 +393,7 @@ export default function ContactsPage() {
                 setPage(0);
               }}
               placeholder={t('searchPlaceholder')}
-              className="pl-8 bg-card border-border text-foreground placeholder:text-muted-foreground"
+              className="pl-8"
             />
           </div>
 
@@ -500,7 +497,7 @@ export default function ContactsPage() {
 
       {/* Bulk action bar */}
       {selected.size > 0 && (
-        <div className="flex items-center justify-between gap-4 rounded-lg border border-border bg-muted/40 px-4 py-2">
+        <div className="surface-surface flex items-center justify-between gap-4 rounded-xl border border-border/60 px-4 py-2">
           <p className="text-sm text-foreground">
             {t('selectedCount', { count: selected.size })}
           </p>
@@ -528,7 +525,7 @@ export default function ContactsPage() {
       )}
 
       {/* Table */}
-      <div className="rounded-lg border border-border overflow-hidden">
+      <div className="surface-content rounded-xl border border-border/60 overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow className="border-border hover:bg-transparent">
@@ -577,7 +574,7 @@ export default function ContactsPage() {
                         variant="outline"
                         size="sm"
                         onClick={openAddForm}
-                        className="mt-2 border-border text-muted-foreground hover:bg-muted"
+                        className="mt-2"
                       >
                         <Plus className="size-3.5" />
                         {t('addFirstContact')}
@@ -660,14 +657,13 @@ export default function ContactsPage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
                         align="end"
-                        className="bg-popover border-border"
                       >
                         <DropdownMenuItem
                           onClick={(e) => {
                             e.stopPropagation();
                             openEditForm(contact);
                           }}
-                          className="text-popover-foreground focus:bg-muted focus:text-foreground"
+                          className="focus:bg-muted focus:text-foreground"
                         >
                           <Pencil className="size-4" />
                           {t('editAction')}
@@ -709,7 +705,7 @@ export default function ContactsPage() {
               size="icon-sm"
               disabled={!hasPrev}
               onClick={() => setPage((p) => p - 1)}
-              className="border-border text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-30"
+              className="disabled:opacity-30"
             >
               <ChevronLeft className="size-4" />
             </Button>
@@ -721,7 +717,7 @@ export default function ContactsPage() {
               size="icon-sm"
               disabled={!hasNext}
               onClick={() => setPage((p) => p + 1)}
-              className="border-border text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-30"
+              className="disabled:opacity-30"
             >
               <ChevronRight className="size-4" />
             </Button>
@@ -770,18 +766,17 @@ export default function ContactsPage() {
 
       {/* Delete Confirmation */}
       <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
-        <DialogContent className="bg-popover border-border text-popover-foreground sm:max-w-sm">
+        <DialogContent className="sm:max-w-sm">
           <DialogHeader>
-            <DialogTitle className="text-popover-foreground">{t('deleteContactTitle')}</DialogTitle>
+            <DialogTitle>{t('deleteContactTitle')}</DialogTitle>
             <DialogDescription className="text-muted-foreground">
               {t('deleteContactDesc', { name: deleteTarget?.name || deleteTarget?.phone || '' })}
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="bg-popover border-border">
+          <DialogFooter>
             <Button
               variant="outline"
               onClick={() => setDeleteConfirmOpen(false)}
-              className="border-border text-muted-foreground hover:bg-muted"
             >
               {t('cancel')}
             </Button>
@@ -799,20 +794,19 @@ export default function ContactsPage() {
 
       {/* Bulk Delete Confirmation */}
       <Dialog open={bulkDeleteOpen} onOpenChange={setBulkDeleteOpen}>
-        <DialogContent className="bg-popover border-border text-popover-foreground sm:max-w-sm">
+        <DialogContent className="sm:max-w-sm">
           <DialogHeader>
-            <DialogTitle className="text-popover-foreground">
+            <DialogTitle>
               {t('deleteBulkTitle')}
             </DialogTitle>
             <DialogDescription className="text-muted-foreground">
               {t('deleteBulkDesc', { count: selected.size })}
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="bg-popover border-border">
+          <DialogFooter>
             <Button
               variant="outline"
               onClick={() => setBulkDeleteOpen(false)}
-              className="border-border text-muted-foreground hover:bg-muted"
             >
               {t('cancel')}
             </Button>

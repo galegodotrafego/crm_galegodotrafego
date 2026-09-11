@@ -28,11 +28,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Trash2,
   Plus,
   GripVertical,
   AlertTriangle,
+  ArrowRight,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
@@ -116,6 +125,8 @@ export function PipelineSettings({
       name: s.name,
       color: s.color,
       position: i,
+      auto_advance: s.auto_advance ?? false,
+      next_stage_id: s.next_stage_id ?? null,
     }));
 
     const [renameRes, stagesRes] = await Promise.all([
@@ -201,7 +212,7 @@ export function PipelineSettings({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md bg-popover border-border max-h-[85vh] overflow-y-auto">
+      <DialogContent className="surface-overlay sm:max-w-md border-border max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-popover-foreground">{t("managePipeline")}</DialogTitle>
         </DialogHeader>
@@ -264,6 +275,7 @@ export function PipelineSettings({
                         <SortableStageRow
                           key={stage.id}
                           stage={stage}
+                          allStages={localStages}
                           onNameChange={(v) => {
                             const updated = [...localStages];
                             updated[index] = { ...updated[index], name: v };
@@ -272,6 +284,16 @@ export function PipelineSettings({
                           onColorChange={(v) => {
                             const updated = [...localStages];
                             updated[index] = { ...updated[index], color: v };
+                            setLocalStages(updated);
+                          }}
+                          onAutoAdvanceChange={(v) => {
+                            const updated = [...localStages];
+                            updated[index] = { ...updated[index], auto_advance: v };
+                            setLocalStages(updated);
+                          }}
+                          onNextStageChange={(v) => {
+                            const updated = [...localStages];
+                            updated[index] = { ...updated[index], next_stage_id: v };
                             setLocalStages(updated);
                           }}
                           onRemove={() => handleRemoveStage(stage.id)}
@@ -366,15 +388,21 @@ export function PipelineSettings({
 
 function SortableStageRow({
   stage,
+  allStages,
   onNameChange,
   onColorChange,
+  onAutoAdvanceChange,
+  onNextStageChange,
   onRemove,
   colors,
   t,
 }: {
   stage: PipelineStage;
+  allStages: PipelineStage[];
   onNameChange: (v: string) => void;
   onColorChange: (v: string) => void;
+  onAutoAdvanceChange: (v: boolean) => void;
+  onNextStageChange: (v: string | null) => void;
   onRemove: () => void;
   colors: string[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -393,31 +421,65 @@ function SortableStageRow({
     <div
       ref={setNodeRef}
       style={style}
-      className="flex items-center gap-2 rounded-lg border border-border bg-muted p-2"
+      className="rounded-lg border border-border bg-muted p-2"
     >
-      <button
-        type="button"
-        {...attributes}
-        {...listeners}
-        className="cursor-grab touch-none text-muted-foreground hover:text-foreground active:cursor-grabbing"
-        aria-label={t("dragToReorder")}
-      >
-        <GripVertical className="h-4 w-4" />
-      </button>
-      <ColorSwatch value={stage.color} onChange={onColorChange} colors={colors} t={t} />
-      <Input
-        value={stage.name}
-        onChange={(e) => onNameChange(e.target.value)}
-        className="h-7 flex-1 border-transparent bg-transparent text-sm text-foreground focus:border-border"
-      />
-      <Button
-        variant="ghost"
-        size="icon-xs"
-        onClick={onRemove}
-        className="text-muted-foreground hover:text-red-400"
-      >
-        <Trash2 className="h-3 w-3" />
-      </Button>
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          {...attributes}
+          {...listeners}
+          className="cursor-grab touch-none text-muted-foreground hover:text-foreground active:cursor-grabbing"
+          aria-label={t("dragToReorder")}
+        >
+          <GripVertical className="h-4 w-4" />
+        </button>
+        <ColorSwatch value={stage.color} onChange={onColorChange} colors={colors} t={t} />
+        <Input
+          value={stage.name}
+          onChange={(e) => onNameChange(e.target.value)}
+          className="h-7 flex-1 border-transparent bg-transparent text-sm text-foreground focus:border-border"
+        />
+        <Button
+          variant="ghost"
+          size="icon-xs"
+          onClick={onRemove}
+          className="text-muted-foreground hover:text-red-400"
+        >
+          <Trash2 className="h-3 w-3" />
+        </Button>
+      </div>
+
+      {/* Auto-advance configuration */}
+      <div className="mt-2 flex items-center gap-2 border-t border-border/50 pt-2">
+        <Switch
+          checked={stage.auto_advance ?? false}
+          onCheckedChange={onAutoAdvanceChange}
+          className="h-4 w-7"
+        />
+        <span className="text-xs text-muted-foreground">{t("autoAdvance")}</span>
+        {stage.auto_advance && (
+          <div className="flex items-center gap-1 ml-auto">
+            <ArrowRight className="h-3 w-3 text-muted-foreground" />
+            <Select
+              value={stage.next_stage_id ?? ""}
+              onValueChange={(v) => onNextStageChange(v || null)}
+            >
+              <SelectTrigger className="h-6 w-40 text-xs">
+                <SelectValue placeholder={t("selectNextStage")} />
+              </SelectTrigger>
+              <SelectContent>
+                {allStages
+                  .filter((s) => s.id !== stage.id)
+                  .map((s) => (
+                    <SelectItem key={s.id} value={s.id} className="text-xs">
+                      {s.name}
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -6,13 +6,6 @@ import { BarChart3, Bot, PencilLine } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { canEditSettings } from '@/lib/auth/roles';
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from '@/components/ui/card';
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -100,17 +93,17 @@ export function AiUsageCard() {
   const hasSpend = (data?.totals.total_tokens ?? 0) > 0;
 
   return (
-    <Card>
-      <CardHeader>
+    <div className="surface-content rounded-xl border border-border">
+      <div className="border-b border-border px-4 py-3">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <CardTitle className="flex items-center gap-2 text-base">
+            <h3 className="flex items-center gap-2 text-base font-medium">
               <BarChart3 className="h-4 w-4 text-primary" /> Token usage
-            </CardTitle>
-            <CardDescription>
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
               Tokens spent on your provider key by drafts and the auto-reply
               bot. Counts only — no message content is stored here.
-            </CardDescription>
+            </p>
           </div>
           <Select
             value={String(days)}
@@ -128,8 +121,8 @@ export function AiUsageCard() {
             </SelectContent>
           </Select>
         </div>
-      </CardHeader>
-      <CardContent className="space-y-5">
+      </div>
+      <div className="space-y-5 p-4">
         {loading || !data ? (
           <Skeleton className="h-[220px] w-full" />
         ) : !hasSpend ? (
@@ -208,8 +201,8 @@ export function AiUsageCard() {
             )}
           </>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 

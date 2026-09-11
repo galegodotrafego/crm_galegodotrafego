@@ -43,11 +43,12 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background px-4">
-        <Card className="w-full max-w-md border-border bg-card">
+      <div className="relative flex min-h-screen items-center justify-center bg-background px-4">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center_oklch(from_var(--primary)_l_c_h/0.05)_0%,transparent_70%)]" />
+        <Card className="relative w-full max-w-md border-border/60 bg-card/80 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_oklch(0_0_0/0.12)]">
           <CardHeader className="items-center text-center">
-            <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-              <CheckCircle className="h-6 w-6 text-primary" />
+            <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-[0_2px_12px_oklch(0.65_0.15_155/0.3)]">
+              <CheckCircle className="h-6 w-6" />
             </div>
             <CardTitle className="text-xl text-foreground">
               Check your email
@@ -62,7 +63,7 @@ export default function ForgotPasswordPage() {
             <Link href="/login">
               <Button
                 variant="outline"
-                className="w-full border-border text-muted-foreground hover:bg-muted hover:text-foreground"
+                className="w-full"
               >
                 Back to sign in
               </Button>
@@ -74,11 +75,12 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <Card className="w-full max-w-md border-border bg-card">
+    <div className="relative flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center_oklch(from_var(--primary)_l_c_h/0.05)_0%,transparent_70%)]" />
+      <Card className="relative w-full max-w-md border-border/60 bg-card/80 backdrop-blur-xl rounded-2xl shadow-[0_8px_32px_oklch(0_0_0/0.12)]">
         <CardHeader className="items-center text-center">
-          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
-            <MessageSquare className="h-6 w-6 text-primary" />
+          <div className="mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-hover text-primary-foreground shadow-[0_2px_12px_oklch(from_var(--primary)_l_c_h/0.3)]">
+            <MessageSquare className="h-6 w-6" />
           </div>
           <CardTitle className="text-xl text-foreground">Reset password</CardTitle>
           <CardDescription className="text-muted-foreground">
@@ -88,7 +90,7 @@ export default function ForgotPasswordPage() {
         <CardContent>
           <form onSubmit={handleReset} className="flex flex-col gap-4">
             {error && (
-              <div className="rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+              <div className="rounded-xl border border-red-500/20 bg-red-500/10 backdrop-blur-sm px-4 py-3 text-sm text-red-400">
                 {error}
               </div>
             )}
@@ -104,14 +106,13 @@ export default function ForgotPasswordPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="border-border bg-muted text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-primary/20"
               />
             </div>
 
             <Button
               type="submit"
               disabled={loading}
-              className="mt-2 h-10 w-full bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+              className="mt-2 h-10 w-full"
             >
               {loading ? "Sending..." : "Send reset link"}
             </Button>

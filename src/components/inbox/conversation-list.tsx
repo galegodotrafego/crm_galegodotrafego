@@ -223,7 +223,7 @@ export function ConversationList({
     // w-full on mobile so the list occupies the whole viewport when it's
     // the single pane showing; fixed 320px on desktop where it shares the
     // row with the thread + contact sidebar.
-    <div className="flex h-full w-full flex-col border-r border-border bg-card lg:w-80">
+    <div className="surface-content flex h-full w-full flex-col border-r border-border lg:w-80">
       {/* Search + Filter */}
       <div className="space-y-2 border-b border-border p-3">
         <div className="relative">
@@ -454,17 +454,17 @@ function ConversationItem({
     <button
       onClick={handleClick}
       className={cn(
-        "flex w-full items-start gap-3 px-3 py-3 text-left transition-colors hover:bg-muted/50",
-        isActive && "border-l-2 border-primary bg-muted/70"
+        "group/conv flex w-full items-start gap-3 px-3 py-3 text-left transition-all duration-200 hover:bg-muted/30",
+        isActive && "border-l-2 border-primary bg-primary/5 shadow-[inset_0_0_20px_oklch(from var(--primary) l c h/0.03)]"
       )}
     >
       {/* Avatar */}
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-medium text-foreground">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-sm font-semibold text-primary transition-all duration-200 glass-hover">
         {contact?.avatar_url ? (
           <img
             src={contact.avatar_url}
             alt={displayName}
-            className="h-10 w-10 rounded-full object-cover"
+            className="h-10 w-10 rounded-xl object-cover"
           />
         ) : (
           initials
@@ -474,18 +474,18 @@ function ConversationItem({
       {/* Content */}
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-2">
-          <span className="truncate text-sm font-medium text-foreground">
+          <span className={cn("truncate text-sm font-medium", isActive ? "text-primary" : "text-foreground")}>
             {displayName}
           </span>
-          <span className="shrink-0 text-[10px] text-muted-foreground">{timeAgo}</span>
+          <span className="shrink-0 text-[10px] text-muted-foreground/50">{timeAgo}</span>
         </div>
         <div className="mt-0.5 flex items-center justify-between gap-2">
-          <p className="truncate text-xs text-muted-foreground">
+          <p className="truncate text-xs text-muted-foreground/60">
             {conversation.last_message_text || t("noMessagesYet")}
           </p>
           <div className="flex shrink-0 items-center gap-1.5">
             {conversation.unread_count > 0 && (
-              <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+              <span className="flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground shadow-[0_0_8px_oklch(from var(--primary) l c h/0.4)]">
                 {conversation.unread_count}
               </span>
             )}
